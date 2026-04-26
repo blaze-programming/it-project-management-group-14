@@ -1,0 +1,48 @@
+extends ../layout
+
+block content
+  .row.justify-content-center
+    .col-md-8
+      .card
+        .card-header.fw-bold= title
+        .card-body
+          if error
+            .alert.alert-danger= error
+          form(action=repair.repairid ? `/repairs/${repair.repairid}` : '/repairs', method='POST')
+            .row.g-3
+              .col-sm-6
+                label.form-label Vehicle
+                select.form-select(name='vehicleid', required)
+                  option(value='') Select vehicle...
+                  each v in vehicles
+                    option(value=v.vehicleid, selected=repair.vehicleid == v.vehicleid)
+                      | #{v.year} #{v.make} #{v.model} — #{v.vin}
+              .col-sm-6
+                label.form-label Technician
+                select.form-select(name='technicianid', required)
+                  option(value='') Select technician...
+                  each e in technicians
+                    option(value=e.employeeid, selected=repair.technicianid == e.employeeid) #{e.firstname} #{e.lastname}
+              .col-sm-6
+                label.form-label Part Used
+                select.form-select(name='partid')
+                  option(value='') None
+                  each p in parts
+                    option(value=p.partid, selected=repair.partid == p.partid) #{p.partname} (#{p.quantityinstock} in stock)
+              .col-sm-3
+                label.form-label Date
+                input.form-control(type='date', name='scheduleddate', value=repair.scheduleddate, required)
+              .col-sm-3
+                label.form-label Time
+                input.form-control(type='time', name='scheduledtime', value=repair.scheduledtime, required)
+              .col-sm-6
+                .form-check.mt-2
+                  input.form-check-input(type='checkbox', name='isplanned', id='isplanned', checked=repair.isplanned !== false, value='true')
+                  label.form-check-label(for='isplanned') Planned
+              .col-sm-6
+                .form-check.mt-2
+                  input.form-check-input(type='checkbox', name='iscompleted', id='iscompleted', checked=repair.iscompleted, value='true')
+                  label.form-check-label(for='iscompleted') Completed
+            .mt-3.d-flex.gap-2
+              button.btn.btn-success(type='submit') Save
+              a.btn.btn-secondary(href='/repairs') Cancel

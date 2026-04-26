@@ -1,0 +1,20 @@
+extends ../layout
+
+block content
+  .d-flex.justify-content-between.align-items-center.mb-4
+    h1 #{employee.firstname} #{employee.lastname}
+    .btn-group
+      a.btn.btn-warning(href=`/employees/${employee.employeeid}/edit`) Edit
+      a.btn.btn-outline-secondary(href='/employees') Back
+  .card
+    .card-body
+      .row
+        .col-md-6
+          p #[strong Email:] #{employee.email}
+          p #[strong Phone:] #{employee.phonenumber}
+          p #[strong Address:] #{employee.streetaddress}, #{employee.city} #{employee.zipcode}
+        .col-md-6
+          p #[strong Position:] #{employee.position}
+          p #[strong Role:] #{employee.role}
+          p #[strong Hourly Wage:] $#{Number(employee.hourlywage).toFixed(2)}
+          p #[strong Hiring Date:] #{employee.hiringdate ? new Date(employee.hiringdate).toLocaleDateString() : 'N/A'}

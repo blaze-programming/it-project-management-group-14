@@ -1,0 +1,36 @@
+extends ../layout
+
+block content
+  .row.justify-content-center
+    .col-md-7
+      .card
+        .card-header.fw-bold= title
+        .card-body
+          if error
+            .alert.alert-danger= error
+          form(action=vehicle.vehicleid ? `/vehicles/${vehicle.vehicleid}` : '/vehicles', method='POST')
+            .row.g-3
+              .col-sm-6
+                label.form-label Customer ID
+                input.form-control(type='number', name='customerid', value=vehicle.customerid, required)
+              .col-sm-3
+                label.form-label Year
+                input.form-control(type='number', name='year', value=vehicle.year, required)
+              .col-sm-3
+                label.form-label Color
+                input.form-control(type='text', name='color', value=vehicle.color)
+              .col-sm-6
+                label.form-label Make
+                input.form-control(type='text', name='make', value=vehicle.make, required)
+              .col-sm-6
+                label.form-label Model
+                input.form-control(type='text', name='model', value=vehicle.model, required)
+              .col-sm-6
+                label.form-label License Plate
+                input.form-control(type='text', name='licenseplatenumber', value=vehicle.licenseplatenumber)
+              .col-sm-6
+                label.form-label VIN
+                input.form-control(type='text', name='vin', value=vehicle.vin, required)
+            .mt-3.d-flex.gap-2
+              button.btn.btn-success(type='submit') Save
+              a.btn.btn-secondary(href='/vehicles') Cancel

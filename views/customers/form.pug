@@ -1,0 +1,40 @@
+extends ../layout
+
+block content
+  .row.justify-content-center
+    .col-md-8
+      .card
+        .card-header.fw-bold= title
+        .card-body
+          if error
+            .alert.alert-danger= error
+          form(action=customer.customerid ? `/customers/${customer.customerid}` : '/customers', method='POST')
+            .row.g-3
+              .col-sm-6
+                label.form-label First Name
+                input.form-control(type='text', name='firstname', value=customer.firstname, required)
+              .col-sm-6
+                label.form-label Last Name
+                input.form-control(type='text', name='lastname', value=customer.lastname, required)
+              .col-12
+                label.form-label Street Address
+                input.form-control(type='text', name='streetaddress', value=customer.streetaddress)
+              .col-sm-6
+                label.form-label City
+                input.form-control(type='text', name='city', value=customer.city)
+              .col-sm-6
+                label.form-label Zip Code
+                input.form-control(type='text', name='zipcode', value=customer.zipcode)
+              .col-md-6
+                label.form-label Email
+                input.form-control(type='email', name='email', value=customer.email, required)
+              .col-md-6
+                label.form-label Phone Number
+                input.form-control(type='tel', name='phonenumber', value=customer.phonenumber)
+              if !customer.customerid
+                .col-12
+                  label.form-label Password
+                  input.form-control(type='password', name='password', required, minlength='8')
+            .mt-3.d-flex.gap-2
+              button.btn.btn-success(type='submit') Save
+              a.btn.btn-secondary(href='/customers') Cancel

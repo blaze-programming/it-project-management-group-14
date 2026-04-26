@@ -3,19 +3,28 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "dev": "USE_MOCK_DB=true node ./bin/www",
+    "test": "USE_MOCK_DB=true node -e \"require('./services/customerService').getAll().then(() => console.log('Mock DB OK'))\""
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "clean-css": "^5.3.3",
     "constantinople": "^4.0.1",
     "cookie-parser": "^1.4.7",
     "debug": "^4.4.1",
+    "dotenv": "^17.4.2",
     "express": "^4.21.2",
+    "express-session": "^1.19.0",
+    "express-validator": "^7.3.2",
     "http-errors": "^2.0.0",
+    "jsonwebtoken": "^9.0.3",
     "lorem-ipsum": "^2.0.8",
     "md5": "^2.3.0",
     "mersenne-twister": "^1.1.0",
     "morgan": "^1.10.1",
+    "pdfkit": "^0.18.0",
+    "pg": "^8.20.0",
     "pug": "^3.0.3",
     "uglify-js": "^3.19.3"
   }

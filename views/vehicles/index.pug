@@ -1,0 +1,33 @@
+extends ../layout
+
+block content
+  .d-flex.justify-content-between.align-items-center.mb-4
+    h1 Vehicles
+    a.btn.btn-primary(href='/vehicles/new') + New Vehicle
+  .table-responsive
+    table.table.table-striped.table-hover
+      thead.table-dark
+        tr
+          th ID
+          th Year
+          th Make
+          th Model
+          th Color
+          th License Plate
+          th VIN
+          th Actions
+      tbody
+        each v in vehicles
+          tr
+            td= v.vehicleid
+            td= v.year
+            td= v.make
+            td= v.model
+            td= v.color
+            td= v.licenseplatenumber
+            td= v.vin
+            td
+              a.btn.btn-sm.btn-info.me-1(href=`/vehicles/${v.vehicleid}`) View
+              a.btn.btn-sm.btn-warning.me-1(href=`/vehicles/${v.vehicleid}/edit`) Edit
+              form(action=`/vehicles/${v.vehicleid}/delete`, method='POST', style='display:inline')
+                button.btn.btn-sm.btn-danger(type='submit', onclick='return confirm("Delete vehicle?")') Delete

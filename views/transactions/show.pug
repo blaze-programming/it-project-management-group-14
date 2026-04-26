@@ -1,0 +1,18 @@
+extends ../layout
+
+block content
+  .d-flex.justify-content-between.align-items-center.mb-4
+    h1 Transaction ##{transaction.transactionid}
+    .btn-group
+      a.btn.btn-outline-primary(href=`/transactions/${transaction.transactionid}/invoice`) View Invoice
+      a.btn.btn-outline-secondary(href='/transactions') Back
+  .card
+    .card-body
+      p #[strong Invoice #:] #{transaction.invoicenumber}
+      p #[strong Customer ID:] #{transaction.customerid}
+      p #[strong Service ID:] #{transaction.serviceid || 'N/A'}
+      p #[strong Repair ID:] #{transaction.repairid || 'N/A'}
+      p #[strong Amount:] $#{Number(transaction.transactionamount).toFixed(2)}
+      p #[strong Payment Method:] #{transaction.paymentmethod}
+      p #[strong Routing Number:] #{transaction.routingnumber || 'N/A'}
+      p #[strong Date:] #{new Date(transaction.created_at).toLocaleDateString()}

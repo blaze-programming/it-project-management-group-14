@@ -1,5 +1,46 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1.mb-4 Dashboard
+  .row.g-4
+    .col-sm-6.col-xl-3
+      .card.text-bg-warning.h-100
+        .card-body
+          .d-flex.justify-content-between.align-items-center
+            div
+              p.card-text.mb-1 Open Repairs
+              h2.card-title.mb-0= openRepairs
+            i.bi.bi-wrench-adjustable.fs-1
+    .col-sm-6.col-xl-3
+      .card.text-bg-info.h-100
+        .card-body
+          .d-flex.justify-content-between.align-items-center
+            div
+              p.card-text.mb-1 Today's Services
+              h2.card-title.mb-0= todayServices
+            i.bi.bi-calendar-check.fs-1
+    .col-sm-6.col-xl-3
+      .card.text-bg-danger.h-100
+        .card-body
+          .d-flex.justify-content-between.align-items-center
+            div
+              p.card-text.mb-1 Low Stock Parts
+              h2.card-title.mb-0= lowStockCount
+            i.bi.bi-exclamation-triangle.fs-1
+    .col-sm-6.col-xl-3
+      .card.text-bg-success.h-100
+        .card-body
+          .d-flex.justify-content-between.align-items-center
+            div
+              p.card-text.mb-1 Weekly Revenue
+              h2.card-title.mb-0 $#{weeklyRevenue}
+            i.bi.bi-currency-dollar.fs-1
+  .row.mt-4
+    .col
+      .d-flex.gap-2.flex-wrap
+        if sessionUser.role === 'owner'
+          a.btn.btn-primary(href='/repairs/new') Schedule Repair
+          a.btn.btn-outline-primary(href='/transactions/cashflow') Cash Flow Report
+          a.btn.btn-outline-secondary(href='/parts') Manage Parts
+        if sessionUser.role !== 'customer'
+          a.btn.btn-outline-dark(href='/repairs') View All Repairs

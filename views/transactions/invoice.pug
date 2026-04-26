@@ -1,0 +1,64 @@
+extends ../layout
+
+block content
+  .d-print-none.mb-3
+    button.btn.btn-primary(onclick='window.print()') 🖨 Print
+    a.btn.btn-outline-secondary.ms-2(href=`/transactions/${invoice.invoicenumber ? '' : ''}`, onclick='history.back()') Back
+    a.btn.btn-outline-dark.ms-2(href='?format=pdf') Download PDF
+  .card.invoice-card
+    .card-body.p-5
+      .row.mb-4
+        .col-6
+          h2.fw-bold 🔧 Auto Repair Shop
+          p.text-muted 123 Mechanic Blvd, Springfield
+        .col-6.text-end
+          h3 INVOICE
+          p.mb-0 #[strong Invoice #:] #{invoice.invoicenumber}
+          p #[strong Date:] #{new Date(invoice.created_at).toLocaleDateString()}
+      hr
+      .row.mb-4
+        .col-6
+          h5 Bill To:
+          if invoice.customer
+            p.mb-0 #{invoice.customer.firstname} #{invoice.customer.lastname}
+            p.mb-0= invoice.customer.streetaddress
+            p.mb-0 #{invoice.customer.city} #{invoice.customer.zipcode}
+            p.mb-0= invoice.customer.email
+            p= invoice.customer.phonenumber
+        .col-6
+          if invoice.vehicle
+            h5 Vehicle:
+            p.mb-0 #{invoice.vehicle.year} #{invoice.vehicle.make} #{invoice.vehicle.model}
+            p.mb-0 Color: #{invoice.vehicle.color}
+            p.mb-0 VIN: #{invoice.vehicle.vin}
+            p License Plate: #{invoice.vehicle.licenseplatenumber}
+      table.table.table-bordered.mb-4
+        thead.table-dark
+          tr
+            th Description
+            th Amount
+        tbody
+          if invoice.service
+            tr
+              td Service: #{invoice.service.servicename}
+              td $#{Number(invoice.service.hourlycost).toFixed(2)}/hr
+          if invoice.part
+            tr
+              td Part: #{invoice.part.partname} (#{invoice.part.vendorname})
+              td $#{Number(invoice.part.cost).toFixed(2)}
+          tr
+            td #[strong Subtotal]
+            td #[strong $#{invoice.subtotal.toFixed(2)}]
+          tr
+            td Tax (8%)
+            td $#{invoice.tax.toFixed(2)}
+          tr.table-success
+            td #[strong TOTAL]
+            td #[strong $#{invoice.total.toFixed(2)}]
+      .row
+        .col-6
+          p #[strong Payment Method:] #{invoice.paymentmethod || 'N/A'}
+          if invoice.routingnumber
+            p #[strong Routing Number:] #{invoice.routingnumber}
+        .col-6.text-end
+          p.text-muted Thank you for your business!

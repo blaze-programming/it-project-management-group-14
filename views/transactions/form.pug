@@ -1,0 +1,41 @@
+extends ../layout
+
+block content
+  .row.justify-content-center
+    .col-md-7
+      .card
+        .card-header.fw-bold New Transaction
+        .card-body
+          if error
+            .alert.alert-danger= error
+          form(action='/transactions', method='POST')
+            .row.g-3
+              .col-sm-6
+                label.form-label Customer ID
+                input.form-control(type='number', name='customerid', required)
+              .col-sm-6
+                label.form-label Amount ($)
+                input.form-control(type='number', name='transactionamount', step='0.01', required)
+              .col-sm-6
+                label.form-label Service ID
+                input.form-control(type='number', name='serviceid')
+              .col-sm-6
+                label.form-label Repair ID
+                input.form-control(type='number', name='repairid')
+              .col-sm-6
+                label.form-label Payment Method
+                select.form-select(name='paymentmethod')
+                  option Credit Card
+                  option Debit Card
+                  option Cash
+                  option Check
+                  option Bank Transfer
+              .col-sm-6
+                label.form-label Routing Number
+                input.form-control(type='text', name='routingnumber')
+              .col-12
+                label.form-label Invoice Number (leave blank to auto-generate)
+                input.form-control(type='text', name='invoicenumber')
+            .mt-3.d-flex.gap-2
+              button.btn.btn-success(type='submit') Save
+              a.btn.btn-secondary(href='/transactions') Cancel

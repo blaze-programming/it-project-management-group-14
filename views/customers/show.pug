@@ -1,0 +1,52 @@
+extends ../layout
+
+block content
+  .d-flex.justify-content-between.align-items-center.mb-4
+    h1 #{customer.firstname} #{customer.lastname}
+    .btn-group
+      a.btn.btn-warning(href=`/customers/${customer.customerid}/edit`) Edit
+      a.btn.btn-outline-secondary(href='/customers') Back
+  .row.g-4
+    .col-md-6
+      .card
+        .card-header.fw-bold Contact Information
+        .card-body
+          p #[strong Email:] #{customer.email}
+          p #[strong Phone:] #{customer.phonenumber}
+          p #[strong Address:] #{customer.streetaddress}, #{customer.city} #{customer.zipcode}
+    .col-md-6
+      .card
+        .card-header.fw-bold Vehicles
+        .card-body
+          if customer.vehicles && customer.vehicles.length
+            ul.list-group.list-group-flush
+              each v in customer.vehicles
+                li.list-group-item
+                  a(href=`/vehicles/${v.vehicleid}`) #{v.year} #{v.make} #{v.model}
+                  span.ms-2.text-muted (#{v.vin})
+          else
+            p.text-muted No vehicles on record.
+    .col-12
+      .card
+        .card-header.fw-bold Transaction History
+        .card-body
+          if transactions && transactions.length
+            table.table.table-sm
+              thead
+                tr
+                  th Invoice #
+                  th Amount
+                  th Payment
+                  th Date
+                  th
+              tbody
+                each t in transactions
+                  tr
+                    td= t.invoicenumber
+                    td $#{Number(t.transactionamount).toFixed(2)}
+                    td= t.paymentmethod
+                    td= new Date(t.created_at).toLocaleDateString()
+                    td
+                      a.btn.btn-sm.btn-outline-primary(href=`/transactions/${t.transactionid}/invoice`) Invoice
+          else
+            p.text-muted No transactions yet.
