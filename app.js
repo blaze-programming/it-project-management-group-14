@@ -70,8 +70,9 @@ app.use(session({
 }));
 
 // ── CSRF protection for web (HTML form) routes ────────────────────────────────
-const { generateToken, doubleCsrfProtection } = doubleCsrf({
+const { generateCsrfToken, doubleCsrfProtection } = doubleCsrf({
   getSecret: () => process.env.CSRF_SECRET || 'dev_csrf_secret_do_not_use_in_prod',
+  getSessionIdentifier: (req) => req.session.id,
   cookieName: '_csrf',
   cookieOptions: {
     secure: process.env.NODE_ENV === 'production',
@@ -83,7 +84,7 @@ const { generateToken, doubleCsrfProtection } = doubleCsrf({
 // Expose CSRF token to all Pug templates
 app.use(doubleCsrfProtection);
 app.use((req, res, next) => {
-  res.locals.csrfToken = generateToken(req, res);
+  res.locals.csrfToken = generateCsrfToken(req, res);
   res.locals.sessionUser = req.session && req.session.user;
   next();
 });
