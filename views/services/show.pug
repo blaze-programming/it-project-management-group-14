@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+  .d-flex.justify-content-between.align-items-center.mb-4
+    h1= service.servicename
+    .btn-group
+      if sessionUser.role === 'owner'
+        a.btn.btn-warning(href=`/services/${service.serviceid}/edit`) Edit
+      a.btn.btn-outline-secondary(href='/services') Back
+  .card
+    .card-body
+      p #[strong Hourly Cost:] $#{Number(service.hourlycost).toFixed(2)}
+      p #[strong Scheduled Date:] #{service.scheduleddate ? new Date(service.scheduleddate).toLocaleDateString() : 'N/A'}
+      p #[strong Scheduled Time:] #{service.scheduledtime || 'N/A'}
+      p #[strong Technician ID:] #{service.technicianid || 'N/A'}
+      p #[strong Repair ID:] #{service.repairid || 'N/A'}

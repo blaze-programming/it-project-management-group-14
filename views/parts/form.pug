@@ -1,0 +1,28 @@
+extends ../layout
+
+block content
+  .row.justify-content-center
+    .col-md-6
+      .card
+        .card-header.fw-bold= title
+        .card-body
+          if error
+            .alert.alert-danger= error
+          form(action=part.partid ? `/parts/${part.partid}` : '/parts', method='POST')
+            input(type='hidden', name='_csrf', value=csrfToken)
+            .row.g-3
+              .col-12
+                label.form-label Part Name
+                input.form-control(type='text', name='partname', value=part.partname, required)
+              .col-12
+                label.form-label Vendor Name
+                input.form-control(type='text', name='vendorname', value=part.vendorname)
+              .col-sm-6
+                label.form-label Cost ($)
+                input.form-control(type='number', name='cost', step='0.01', value=part.cost, required)
+              .col-sm-6
+                label.form-label Quantity In Stock
+                input.form-control(type='number', name='quantityinstock', value=part.quantityinstock !== undefined ? part.quantityinstock : 0, required)
+            .mt-3.d-flex.gap-2
+              button.btn.btn-success(type='submit') Save
+              a.btn.btn-secondary(href='/parts') Cancel

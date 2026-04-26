@@ -1,0 +1,18 @@
+extends ../layout
+
+block content
+  .d-flex.justify-content-between.align-items-center.mb-4
+    h1 #{vehicle.year} #{vehicle.make} #{vehicle.model}
+    .btn-group
+      a.btn.btn-warning(href=`/vehicles/${vehicle.vehicleid}/edit`) Edit
+      a.btn.btn-outline-secondary(href='/vehicles') Back
+  .card
+    .card-body
+      .row
+        .col-md-6
+          p #[strong Color:] #{vehicle.color}
+          p #[strong License Plate:] #{vehicle.licenseplatenumber}
+          p #[strong VIN:] #{vehicle.vin}
+        .col-md-6
+          p #[strong Customer ID:] #{vehicle.customerid}
+          p #[strong Added:] #{new Date(vehicle.created_at).toLocaleDateString()}

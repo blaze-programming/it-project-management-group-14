@@ -1,0 +1,30 @@
+extends ../layout
+
+block content
+  .d-flex.justify-content-between.align-items-center.mb-4
+    h1 Repair ##{repair.repairid}
+    .btn-group
+      a.btn.btn-warning(href=`/repairs/${repair.repairid}/edit`) Edit
+      if !repair.iscompleted
+        form(action=`/repairs/${repair.repairid}/complete`, method='POST', style='display:inline')
+          input(type='hidden', name='_csrf', value=csrfToken)
+          button.btn.btn-success(type='submit') Mark Complete
+      a.btn.btn-outline-secondary(href='/repairs') Back
+  .card
+    .card-body
+      .row
+        .col-md-6
+          p #[strong Vehicle ID:] #{repair.vehicleid}
+          p #[strong Technician ID:] #{repair.technicianid}
+          p #[strong Part ID:] #{repair.partid}
+        .col-md-6
+          p #[strong Scheduled Date:] #{repair.scheduleddate ? new Date(repair.scheduleddate).toLocaleDateString() : 'N/A'}
+          p #[strong Scheduled Time:] #{repair.scheduledtime}
+          p
+            strong Status: 
+            if repair.iscompleted
+              span.badge.bg-success Completed
+            else if repair.isplanned
+              span.badge.bg-warning.text-dark Planned
+            else
+              span.badge.bg-secondary Unplanned

@@ -1,0 +1,55 @@
+extends ../layout
+
+block content
+  .row.justify-content-center
+    .col-md-8
+      .card
+        .card-header.fw-bold= title
+        .card-body
+          if error
+            .alert.alert-danger= error
+          form(action=employee.employeeid ? `/employees/${employee.employeeid}` : '/employees', method='POST')
+            input(type='hidden', name='_csrf', value=csrfToken)
+            .row.g-3
+              .col-sm-6
+                label.form-label First Name
+                input.form-control(type='text', name='firstname', value=employee.firstname, required)
+              .col-sm-6
+                label.form-label Last Name
+                input.form-control(type='text', name='lastname', value=employee.lastname, required)
+              .col-12
+                label.form-label Street Address
+                input.form-control(type='text', name='streetaddress', value=employee.streetaddress)
+              .col-sm-6
+                label.form-label City
+                input.form-control(type='text', name='city', value=employee.city)
+              .col-sm-6
+                label.form-label Zip Code
+                input.form-control(type='text', name='zipcode', value=employee.zipcode)
+              .col-md-6
+                label.form-label Email
+                input.form-control(type='email', name='email', value=employee.email, required)
+              .col-md-6
+                label.form-label Phone Number
+                input.form-control(type='tel', name='phonenumber', value=employee.phonenumber)
+              .col-md-4
+                label.form-label Position
+                input.form-control(type='text', name='position', value=employee.position)
+              .col-md-4
+                label.form-label Role
+                select.form-select(name='role', required)
+                  option(value='owner', selected=employee.role === 'owner') Owner
+                  option(value='technician', selected=employee.role === 'technician') Technician
+              .col-md-4
+                label.form-label Hourly Wage ($)
+                input.form-control(type='number', name='hourlywage', step='0.01', value=employee.hourlywage, required)
+              .col-md-6
+                label.form-label Hiring Date
+                input.form-control(type='date', name='hiringdate', value=employee.hiringdate, required)
+              if !employee.employeeid
+                .col-12
+                  label.form-label Password
+                  input.form-control(type='password', name='password', required, minlength='8')
+            .mt-3.d-flex.gap-2
+              button.btn.btn-success(type='submit') Save
+              a.btn.btn-secondary(href='/employees') Cancel

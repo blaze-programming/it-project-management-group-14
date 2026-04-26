@@ -1,0 +1,40 @@
+extends ../layout
+
+block content
+  .row.justify-content-center
+    .col-md-7
+      .card
+        .card-header.fw-bold= title
+        .card-body
+          if error
+            .alert.alert-danger= error
+          form(action=service.serviceid ? `/services/${service.serviceid}` : '/services', method='POST')
+            input(type='hidden', name='_csrf', value=csrfToken)
+            .row.g-3
+              .col-12
+                label.form-label Service Name
+                input.form-control(type='text', name='servicename', value=service.servicename, required)
+              .col-sm-6
+                label.form-label Hourly Cost ($)
+                input.form-control(type='number', name='hourlycost', step='0.01', value=service.hourlycost, required)
+              .col-sm-3
+                label.form-label Date
+                input.form-control(type='date', name='scheduleddate', value=service.scheduleddate)
+              .col-sm-3
+                label.form-label Time
+                input.form-control(type='time', name='scheduledtime', value=service.scheduledtime)
+              .col-sm-6
+                label.form-label Technician
+                select.form-select(name='technicianid')
+                  option(value='') None
+                  each e in technicians
+                    option(value=e.employeeid, selected=service.technicianid == e.employeeid) #{e.firstname} #{e.lastname}
+              .col-sm-6
+                label.form-label Linked Repair
+                select.form-select(name='repairid')
+                  option(value='') None
+                  each r in repairs
+                    option(value=r.repairid, selected=service.repairid == r.repairid) Repair ##{r.repairid}
+            .mt-3.d-flex.gap-2
+              button.btn.btn-success(type='submit') Save
+              a.btn.btn-secondary(href='/services') Cancel

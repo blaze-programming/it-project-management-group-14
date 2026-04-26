@@ -1,0 +1,36 @@
+extends ../layout
+
+block content
+  .d-flex.justify-content-between.align-items-center.mb-4
+    h1 Parts Inventory
+    if sessionUser.role === 'owner'
+      a.btn.btn-primary(href='/parts/new') + New Part
+  .table-responsive
+    table.table.table-striped.table-hover
+      thead.table-dark
+        tr
+          th ID
+          th Part Name
+          th Vendor
+          th Cost
+          th In Stock
+          th Actions
+      tbody
+        each p in parts
+          tr(class=p.quantityinstock <= 5 ? 'table-danger' : '')
+            td= p.partid
+            td= p.partname
+            td= p.vendorname
+            td $#{Number(p.cost).toFixed(2)}
+            td
+              if p.quantityinstock <= 5
+                span.badge.bg-danger #{p.quantityinstock} ⚠ Low
+              else
+                = p.quantityinstock
+            td
+              a.btn.btn-sm.btn-info.me-1(href=`/parts/${p.partid}`) View
+              if sessionUser.role === 'owner'
+                a.btn.btn-sm.btn-warning.me-1(href=`/parts/${p.partid}/edit`) Edit
+                form(action=`/parts/${p.partid}/delete`, method='POST', style='display:inline')
+                  input(type='hidden', name='_csrf', value=csrfToken)
+                  button.btn.btn-sm.btn-danger(type='submit', onclick='return confirm("Delete part?")') Delete

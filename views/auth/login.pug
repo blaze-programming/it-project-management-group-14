@@ -1,0 +1,28 @@
+extends ../layout
+
+block content
+  .row.justify-content-center
+    .col-md-5
+      .card.shadow-sm
+        .card-body.p-4
+          h2.card-title.mb-4 Sign In
+          if error
+            .alert.alert-danger= error
+          form(action='/auth/login', method='POST')
+            input(type='hidden', name='_csrf', value=csrfToken)
+            .mb-3
+              label.form-label(for='email') Email address
+              input#email.form-control(type='email', name='email', required, autocomplete='email')
+            .mb-3
+              label.form-label(for='password') Password
+              input#password.form-control(type='password', name='password', required)
+            .mb-3
+              label.form-label Login as
+              select.form-select(name='role')
+                option(value='employee') Employee (Owner / Technician)
+                option(value='customer') Customer
+            button.btn.btn-primary.w-100(type='submit') Sign In
+          hr
+          p.text-center.mb-0
+            | New customer? 
+            a(href='/auth/register') Register here
