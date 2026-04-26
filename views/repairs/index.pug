@@ -35,7 +35,9 @@ block content
               a.btn.btn-sm.btn-warning.me-1(href=`/repairs/${r.repairid}/edit`) Edit
               if !r.iscompleted
                 form(action=`/repairs/${r.repairid}/complete`, method='POST', style='display:inline')
+                  input(type='hidden', name='_csrf', value=csrfToken)
                   button.btn.btn-sm.btn-success.me-1(type='submit') ✓ Complete
               if sessionUser.role === 'owner'
                 form(action=`/repairs/${r.repairid}/delete`, method='POST', style='display:inline')
+                  input(type='hidden', name='_csrf', value=csrfToken)
                   button.btn.btn-sm.btn-danger(type='submit', onclick='return confirm("Delete repair?")') Delete

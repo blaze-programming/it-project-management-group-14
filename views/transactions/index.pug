@@ -30,4 +30,5 @@ block content
               a.btn.btn-sm.btn-info.me-1(href=`/transactions/${t.transactionid}`) View
               a.btn.btn-sm.btn-outline-primary.me-1(href=`/transactions/${t.transactionid}/invoice`) Invoice
               form(action=`/transactions/${t.transactionid}/delete`, method='POST', style='display:inline')
+                input(type='hidden', name='_csrf', value=csrfToken)
                 button.btn.btn-sm.btn-danger(type='submit', onclick='return confirm("Delete transaction?")') Delete

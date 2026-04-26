@@ -42,6 +42,7 @@ html(lang='en')
                 span.navbar-text.me-3 #{sessionUser.firstname} (#{sessionUser.role})
               li.nav-item
                 form(action='/auth/logout', method='POST')
+                  input(type='hidden', name='_csrf', value=csrfToken)
                   button.btn.btn-outline-light.btn-sm(type='submit') Logout
     .container.mt-4
       block content

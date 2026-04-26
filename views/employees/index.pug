@@ -31,4 +31,5 @@ block content
               a.btn.btn-sm.btn-info.me-1(href=`/employees/${e.employeeid}`) View
               a.btn.btn-sm.btn-warning.me-1(href=`/employees/${e.employeeid}/edit`) Edit
               form(action=`/employees/${e.employeeid}/delete`, method='POST', style='display:inline')
+                input(type='hidden', name='_csrf', value=csrfToken)
                 button.btn.btn-sm.btn-danger(type='submit', onclick='return confirm("Delete employee?")') Delete

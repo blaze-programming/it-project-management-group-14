@@ -7,6 +7,7 @@ block content
       a.btn.btn-warning(href=`/repairs/${repair.repairid}/edit`) Edit
       if !repair.iscompleted
         form(action=`/repairs/${repair.repairid}/complete`, method='POST', style='display:inline')
+          input(type='hidden', name='_csrf', value=csrfToken)
           button.btn.btn-success(type='submit') Mark Complete
       a.btn.btn-outline-secondary(href='/repairs') Back
   .card

@@ -3,7 +3,7 @@ extends ../layout
 block content
   .d-print-none.mb-3
     button.btn.btn-primary(onclick='window.print()') 🖨 Print
-    a.btn.btn-outline-secondary.ms-2(href=`/transactions/${invoice.invoicenumber ? '' : ''}`, onclick='history.back()') Back
+    a.btn.btn-outline-secondary.ms-2(href='javascript:history.back()') Back
     a.btn.btn-outline-dark.ms-2(href='?format=pdf') Download PDF
   .card.invoice-card
     .card-body.p-5

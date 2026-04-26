@@ -10,8 +10,9 @@
 const bcrypt = require('bcrypt');
 
 // ─── Seed data ────────────────────────────────────────────────────────────────
-
-const HASH = '$2b$10$abcdefghijklmnopqrstuuVGmBCxG4/PJH5Ber9VHgjRiEKLo.hAa'; // "password123"
+// WARNING: This hash is for development/testing only (password: "password123").
+// It must NEVER be used in production. Real data uses properly-salted bcrypt hashes.
+const HASH = '$2b$10$abcdefghijklmnopqrstuuVGmBCxG4/PJH5Ber9VHgjRiEKLo.hAa';
 
 const _store = {
   customers: [

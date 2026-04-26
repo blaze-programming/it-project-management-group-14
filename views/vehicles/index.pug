@@ -30,4 +30,5 @@ block content
               a.btn.btn-sm.btn-info.me-1(href=`/vehicles/${v.vehicleid}`) View
               a.btn.btn-sm.btn-warning.me-1(href=`/vehicles/${v.vehicleid}/edit`) Edit
               form(action=`/vehicles/${v.vehicleid}/delete`, method='POST', style='display:inline')
+                input(type='hidden', name='_csrf', value=csrfToken)
                 button.btn.btn-sm.btn-danger(type='submit', onclick='return confirm("Delete vehicle?")') Delete

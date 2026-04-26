@@ -9,6 +9,7 @@ block content
           if error
             .alert.alert-danger= error
           form(action=employee.employeeid ? `/employees/${employee.employeeid}` : '/employees', method='POST')
+            input(type='hidden', name='_csrf', value=csrfToken)
             .row.g-3
               .col-sm-6
                 label.form-label First Name

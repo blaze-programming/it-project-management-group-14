@@ -1,8 +1,7 @@
 'use strict';
 
 const jwt = require('jsonwebtoken');
-
-const JWT_SECRET = process.env.JWT_SECRET || 'dev_jwt_secret';
+const { JWT_SECRET } = require('../config/secrets');
 
 /**
  * requireSession – protects web routes.

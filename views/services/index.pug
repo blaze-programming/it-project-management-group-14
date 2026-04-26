@@ -32,4 +32,5 @@ block content
               if sessionUser.role === 'owner'
                 a.btn.btn-sm.btn-warning.me-1(href=`/services/${s.serviceid}/edit`) Edit
                 form(action=`/services/${s.serviceid}/delete`, method='POST', style='display:inline')
+                  input(type='hidden', name='_csrf', value=csrfToken)
                   button.btn.btn-sm.btn-danger(type='submit', onclick='return confirm("Delete service?")') Delete
